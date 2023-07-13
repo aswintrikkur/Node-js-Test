@@ -25,12 +25,18 @@ const { log } = require('console');
 // console.log('speed is 5000');
 
 let usersData = [
-    {   tokken: 1122,
-        userName: 'aswin' },
-    {   tokken: 3344,
-        userName: 'bose' },
-    {   tokken: 5566,
-        userName: 'unkown' }
+    {
+        tokken: 1122,
+        userName: 'aswin'
+    },
+    {
+        tokken: 3344,
+        userName: 'bose'
+    },
+    {
+        tokken: 5566,
+        userName: 'unkown'
+    }
 ];
 
 // let userCount = 0;
@@ -64,13 +70,18 @@ console.log(`******apiData**** \n${apiData}`);
 const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5174');
 
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    // res.write('server loading.......')
-    // res.write (userName);
-    res.end(JSON.stringify(apiData));
-    // res.end();
+    switch (req.url) {
+        case '/':
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write('<h1> api fetched successfully </h1>');
+            res.end();
+            break;
 
-
+        case '/users':
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(apiData));
+            break;
+    }
 })
 
 server.listen(3000);
